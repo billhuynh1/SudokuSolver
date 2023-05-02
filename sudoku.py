@@ -24,11 +24,16 @@ def is_valid(board) -> bool:
 # Todo: Board input
 def board_input():
     board_list = []
-    for i in range(2):
+    for i in range(9):
         print(f"Row {i + 1}")
         board_row = list(input("Enter the row of the board separated by spaces, if the sudoku board has blank squares, input a period: ").split())
         if len(board_row) != 9:
-            return board_input() + print("Try again")
+            # check if the board is valid here
+            print("Try again")
+            board_input()
+            continue
+        board_list.append(board_row)
+    
     return board_list
 
 def main():
@@ -42,9 +47,8 @@ def main():
     #         ,[".",".",".","4","1","9",".",".","5"]
     #         ,[".",".",".",".","8",".",".","7","9"]]
 
-    board = board_input()
-
-    if is_valid(board):
+    # list index out of range because for loop runs 9 times
+    if is_valid(board_input()):
         print("Valid Board.")
     else:
         print("Not valid.")
