@@ -1,14 +1,15 @@
 from collections import defaultdict
+BOARD_LENGTH = 9
 
 # class Sudoku:
-def is_valid(board) -> bool:
+def is_valid(board: list) -> bool:
     rows = defaultdict(set)
     cols = defaultdict(set)
     squares = defaultdict(set)
 
-    for r in range(9):
-        for c in range(9):
-            if board[r][c] == ".":
+    for r in range(BOARD_LENGTH):
+        for c in range(BOARD_LENGTH):
+            if board[r][c] == "0":
                 continue
             curr = board[r][c]
             if (curr in rows[r] or curr in cols[c] or curr in squares[(r // 3, c //3)]):
@@ -24,16 +25,16 @@ def is_valid(board) -> bool:
 # Todo: Board input
 def board_input():
     board_list = []
-    for i in range(9):
-        print(f"Row {i + 1}")
-        board_row = list(input("Enter the row of the board separated by spaces, if the sudoku board has blank squares, input a period: ").split())
-        if len(board_row) != 9:
-            # check if the board is valid here
-            print("Try again")
-            board_input()
+    idx = 0
+    while idx < BOARD_LENGTH:
+        print(f"Row {idx + 1}")
+        row = list(input("Enter the numbers in the row, if it is a blank space input a '.': "))
+        if len(row) != BOARD_LENGTH:
+            print("\nTry again")
             continue
-        board_list.append(board_row)
-    
+        else:
+            board_list.append(row)
+            idx += 1
     return board_list
 
 def main():
@@ -46,12 +47,8 @@ def main():
     #         ,[".","6",".",".",".",".","2","8","."]
     #         ,[".",".",".","4","1","9",".",".","5"]
     #         ,[".",".",".",".","8",".",".","7","9"]]
+    board = board_input()
 
-    # list index out of range because for loop runs 9 times
-    if is_valid(board_input()):
-        print("Valid Board.")
-    else:
-        print("Not valid.")
-
+    print(board)
 if __name__ == "__main__":
     main()
